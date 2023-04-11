@@ -14,19 +14,33 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    
+    @PostMapping("/register")
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        User registeredUser = userService.createUser(user);
+        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+    }
 
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        try {
+            User createdUser = userService.createUser(user);
+            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            User user = userService.getUserByUsername(username);
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
