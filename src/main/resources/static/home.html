@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RunningApp</title>
+</head>
+<body>
+    <div align="center">
+    	<form th:action="@{http://localhost:8080/home}" method="post">
+        	<h1>Welcome to RunningApp</h1>
+        	<p><a href="/login">Login</a> or <a href="/register">Register</a></p>
+        </form>
+    </div>
+</body>
+</html>

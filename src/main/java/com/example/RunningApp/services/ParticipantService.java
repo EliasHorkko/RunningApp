@@ -3,11 +3,12 @@ package com.example.RunningApp.services;
 import com.example.RunningApp.models.Participant;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ParticipantService {
+    Participant createParticipant(Participant participant);
+    Participant getParticipantById(Long id);
+    List<Participant> getParticipantsByEventId(Long eventId);
     List<Participant> getAllParticipants();
-    Optional<Participant> getParticipantById(Long id);
-    Participant saveParticipant(Participant participant);
+    public Participant updateParticipant(Long eventId, Long participantId, Participant participant);
     void deleteParticipant(Long id);
 }

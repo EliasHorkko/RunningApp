@@ -1,8 +1,13 @@
 package com.example.RunningApp.models;
 
-import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "events")
@@ -12,21 +17,39 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Event name is required")
+    @Size(max = 50, message = "Event name must be at most 50 characters long")
     private String name;
 
+    @NotNull(message = "Date is required")
     private LocalDate date;
+    
+    @Size(max = 255, message = "Description must be at most 255 characters long")
+    private String description;
 
-    private String location;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participant> participants = new ArrayList<>();
+    
+    @NotBlank(message = "User is required")
+    private String user;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private Set<Participant> participants;
+    public Event() {
+    }
 
-    public Event() {}
+    public Event(String name, LocalDate date, String description,String user) {
+        this.name = name;
+        this.date = date;
+        this.description = description;
+        this.user = user;
+        this.participants = new ArrayList<>();
+    }
+    
+    public String getUser() {
+        return user;
+    }
 
-    public Event(String name, LocalDate date, String location) {
-        this.setName(name);
-        this.setDate(date);
-        this.setLocation(location);
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -53,19 +76,30 @@ public class Event {
         this.date = date;
     }
 
-    public String getLocation() {
-        return location;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Set<Participant> getParticipants() {
+    public List<Participant> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(Set<Participant> participants) {
+    public void setParticipants(List<Participant> participants) {
         this.participants = participants;
     }
+
+    public void addParticipant(Participant participant) {
+        participants.add(participant);
+        participant.setEvent(this);
+    }
+
+    public void removeParticipant(Participant participant) {
+        participants.remove(participant);
+        participant.setEvent(null);
+    }
 }
+

@@ -1,6 +1,10 @@
 package com.example.RunningApp.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "participants")
@@ -10,23 +14,23 @@ public class Participant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @Email(message = "Please provide a valid email")
+    @NotBlank(message = "Email is mandatory")
     private String email;
 
-    private String birthdate;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Event event;
 
-    public Participant() {}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    public Participant(String name, String email, String birthdate) {
-        this.name = name;
-        this.email = email;
-        this.birthdate = birthdate;
-    }
+    // getters and setters
 
     public Long getId() {
         return id;
@@ -52,19 +56,19 @@ public class Participant {
         this.email = email;
     }
 
-    public String getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
-
     public Event getEvent() {
         return event;
     }
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

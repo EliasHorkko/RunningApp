@@ -1,13 +1,17 @@
 package com.example.RunningApp.services;
 
-import com.example.RunningApp.models.Event;
-
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.lang.NonNull;
+
+import com.example.RunningApp.models.Event;
+import com.example.RunningApp.models.Participant;
 
 public interface EventService {
+    Event createEvent(@NonNull Event event);
+    Event getEventById(Long id);
     List<Event> getAllEvents();
-    Optional<Event> getEventById(Long id);
-    Event saveEvent(Event event);
+    Event updateEvent(Long id, Event event);
     void deleteEvent(Long id);
+	List<Participant> getParticipantsByEventId(Long eventId);
 }

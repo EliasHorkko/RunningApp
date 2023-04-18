@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>RunningApp - Participants</title>
+</head>
+<body>
+	<h1>Participants</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Birthdate</th>
+				<th>Event</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="participant : ${participants}">
+				<td th:text="${participant.name}"></td>
+				<td th:text="${participant.email}"></td>
+				<td th:text="${participant.birthdate}"></td>
+				<td th:text="${participant.event.name}"></td>
+				<td><a th:href="@{/edit-participant/{id}(id=${participant.id})}">Edit</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

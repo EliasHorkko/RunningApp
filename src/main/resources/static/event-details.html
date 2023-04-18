@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>RunningApp - Event Details</title>
+</head>
+<body>
+	<h1>Event Details</h1>
+	
+	<h2>Event Information</h2>
+	<table>
+		<tr>
+			<td>Name:</td>
+			<td th:text="${event.name}"></td>
+		</tr>
+		<tr>
+			<td>Date:</td>
+			<td th:text="${event.date}"></td>
+		</tr>
+		<tr>
+			<td>Location:</td>
+			<td th:text="${event.location}"></td>
+		</tr>
+	</table>
+	
+	<h2>Participants</h2>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Birthdate</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr th:each="participant : ${event.participants}">
+			<td th:text="${participant.name}"></td>
+			<td th:text="${participant.email}"></td>
+			<td th:text="${participant.birthdate}"></td>
+			<td><a th:href="@{/edit-participant/{id}(id=${participant.id})}">Edit</a></td>
+			<td><a th:href="@{/delete-participant/{id}(id=${participant.id})}">Delete</a></td>
+		</tr>
+	</table>
+	
+	<a th:href="@{/add-participant/{eventId}(eventId=${event.id})}">Add Participant</a>
+	<a th:href="@{/events}">Back to Events</a>
+</body>
+</html>
