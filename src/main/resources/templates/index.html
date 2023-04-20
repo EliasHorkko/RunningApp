@@ -2,23 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>RunningApp - Register</title>
+    <title>RunningApp - Home</title>
 </head>
 <body>
-    <h1>Register</h1>
-    <form method="post" action="/register">
+    <h1>Welcome to RunningApp</h1>
+    <form method="post" action="/login">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password"><br>
 
-        <input type="submit" value="Register">
+        <input type="submit" value="Login">
     </form>
 
-    <a href="/">Login</a>
+    <a href="/register">Register</a>
 </body>
 </html>

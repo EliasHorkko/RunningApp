@@ -27,17 +27,21 @@ public class Event {
     @Size(max = 255, message = "Description must be at most 255 characters long")
     private String description;
 
+    // One event can have multiple participants, so use a List
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
     
+    // Many events can be associated with one user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
+    // Default constructor
     public Event() {
     }
 
-    public Event(String name, LocalDate date, String description,User user) {
+    // Constructor with parameters
+    public Event(String name, LocalDate date, String description, User user) {
         this.name = name;
         this.date = date;
         this.description = description;
@@ -45,6 +49,7 @@ public class Event {
         this.participants = new ArrayList<>();
     }
     
+    // Getters and setters
     public User getUser() {
         return user;
     }
@@ -93,14 +98,15 @@ public class Event {
         this.participants = participants;
     }
 
+    // Add a participant to the event
     public void addParticipant(Participant participant) {
         participants.add(participant);
         participant.setEvent(this);
     }
 
+    // Remove a participant from the event
     public void removeParticipant(Participant participant) {
         participants.remove(participant);
         participant.setEvent(null);
     }
 }
-

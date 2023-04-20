@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <div align="center">
-        <h1>Login</h1>
-        <form th:action="@{http://localhost:8080/login}" method="post">
-
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required autofocus />
-            </div>
-            <br />
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required />
-            </div>
-            <br />
-            <div>
-                <button type="submit">Login</button>
-            </div>
-        </form>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4>Login</h4>
+          </div>
+          <div class="card-body">
+            <form method="post" action="/login">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </body>
 </html>

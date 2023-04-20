@@ -30,10 +30,11 @@ public class Participant {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    
+    // Default constructor
     public Participant() {
     }
 
+    // Constructor with parameters
     public Participant(String name, String email, Event event, User user) {
         this.name = name;
         this.email = email;

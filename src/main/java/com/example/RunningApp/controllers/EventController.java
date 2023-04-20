@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//Define the REST API endpoints for the Event entity
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
@@ -21,12 +22,16 @@ public class EventController {
     @Autowired
     private ParticipantService participantService;
 
+    
+ // Get all events
     @GetMapping
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+    
+ // Get event by ID
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);
@@ -37,12 +42,14 @@ public class EventController {
         }
     }
 
+ // Create a new event
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         Event createdEvent = eventService.createEvent(event);
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
-
+    
+ // Update an existing event
     @PutMapping("/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event event) {
         Event updatedEvent = eventService.updateEvent(id, event);
@@ -53,24 +60,29 @@ public class EventController {
         }
     }
 
+ // Delete an event
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+ // Get all participants for an event
     @GetMapping("/{eventId}/participants")
     public ResponseEntity<List<Participant>> getParticipantsByEventId(@PathVariable Long eventId) {
         List<Participant> participants = participantService.getParticipantsByEventId(eventId);
         return new ResponseEntity<>(participants, HttpStatus.OK);
     }
 
+ // Create a new participant for an event
     @PostMapping("/{eventId}/participants")
     public ResponseEntity<Participant> createParticipant(@PathVariable Long eventId, @RequestBody Participant participant) {
         Participant createdParticipant = participantService.createParticipant(participant);
         return new ResponseEntity<>(createdParticipant, HttpStatus.CREATED);
     }
 
+    
+ // Update an existing participant for an event
     @PutMapping("/{eventId}/participants/{participantId}")
     public ResponseEntity<Participant> updateParticipant(@PathVariable Long eventId, @PathVariable Long participantId, @RequestBody Participant participant) {
         Participant updatedParticipant = participantService.updateParticipant(eventId, participantId, participant);
@@ -81,6 +93,7 @@ public class EventController {
         }
     }
 
+ // Delete a participant for an event
     @DeleteMapping("/{eventId}/participants/{participantId}")
     public ResponseEntity<HttpStatus> deleteParticipant(@PathVariable Long eventId, @PathVariable Long participantId) {
         participantService.deleteParticipant(participantId);

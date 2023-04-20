@@ -22,6 +22,7 @@ import com.example.RunningApp.models.Participant;
 @EntityScan(basePackages = {"com.example.RunningApp.models"})
 @ComponentScan(basePackages = {"com.example.RunningApp.services"})
 @EnableJpaRepositories(basePackages = {"com.example.RunningApp.repositories"})
+@ComponentScan(basePackages = {"com.example.RunningApp", "com.example.RunningApp.config"})
 @SpringBootApplication
 @RestController
 public class RunningAppApplication {
@@ -30,6 +31,8 @@ public class RunningAppApplication {
         SpringApplication.run(RunningAppApplication.class, args);
     }
 
+    // Sample Data to database
+    
     @Bean
     CommandLineRunner init(UserService userService, EventService eventService, ParticipantService participantService) {
         return args -> {

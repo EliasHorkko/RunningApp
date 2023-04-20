@@ -29,9 +29,12 @@ public class User {
     @Size(min = 8, max = 100)
     private String password;
     
+    
+    // Default constructor
     public User() {
     }
 
+    // Constructor with parameters
     public User(String name, String username, String email, String password) {
         this.name = name;
         this.username = username;

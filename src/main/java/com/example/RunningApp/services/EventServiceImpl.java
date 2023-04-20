@@ -18,22 +18,26 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    // Create a new event
     @Override
     public Event createEvent(Event event) {
         return eventRepository.save(event);
     }
 
+    // Retrieve an event by ID
     @Override
     public Event getEventById(Long id) {
         Optional<Event> optionalEvent = eventRepository.findById(id);
         return optionalEvent.orElse(null);
     }
 
+    // Retrieve a list of all events
     @Override
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
 
+    // Update an existing event
     @Override
     public Event updateEvent(Long id, Event event) {
         Optional<Event> optionalEvent = eventRepository.findById(id);
@@ -48,11 +52,13 @@ public class EventServiceImpl implements EventService {
         }
     }
 
+    // Delete an event by ID
     @Override
     public void deleteEvent(Long id) {
         eventRepository.deleteById(id);
     }
 
+    // Retrieve a list of participants for a given event
     @Override
     public List<Participant> getParticipantsByEventId(Long eventId) {
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
@@ -64,9 +70,9 @@ public class EventServiceImpl implements EventService {
         }
     }
 
+	// Save an event
 	@Override
 	public void saveEvent(Event event) {
 		eventRepository.save(event);
-		
 	}
 }
