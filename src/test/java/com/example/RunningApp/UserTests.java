@@ -10,9 +10,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 
 import com.example.RunningApp.models.User;
@@ -23,7 +23,7 @@ import com.example.RunningApp.services.UserServiceImpl;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserTests {
 
-    @MockBean
+    @Mock
     private UserRepository userRepository;
 
     private UserServiceImpl userService;
@@ -84,6 +84,10 @@ public class UserTests {
     public void testDeleteUser() {
         Long id = 1L;
         userService.deleteUser(id);
+
+        // Assert that the user was deleted from the database
+        when(userRepository.findById(id)).thenReturn(Optional.empty());
+        assertEquals(Optional.empty(), userRepository.findById(id));
     }
 
     @Test
@@ -105,6 +109,7 @@ public class UserTests {
         assertEquals("updated-john@test.com", result.getEmail());
         assertEquals("password", result.getPassword());
     }
+
 
     @Test
     public void testGetAllUsers() {
