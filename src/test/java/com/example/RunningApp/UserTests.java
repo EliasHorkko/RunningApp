@@ -4,20 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 
 import com.example.RunningApp.models.User;
 import com.example.RunningApp.repositories.UserRepository;
 import com.example.RunningApp.services.UserServiceImpl;
 
 @SpringBootTest
-public class UserServiceImplTest {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+public class UserTests {
 
     @MockBean
     private UserRepository userRepository;
@@ -26,9 +30,11 @@ public class UserServiceImplTest {
 
     @BeforeEach
     public void setUp() {
+        MockitoAnnotations.openMocks(this);
         userService = new UserServiceImpl();
         userService.setUserRepository(userRepository);
     }
+
 
     @Test
     public void testGetUserById() {
@@ -37,11 +43,17 @@ public class UserServiceImplTest {
         user.setId(id);
         user.setName("John");
         user.setEmail("john@test.com");
+
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
         User result = userService.getUserById(id);
+
         assertEquals(id, result.getId());
         assertEquals("John", result.getName());
         assertEquals("john@test.com", result.getEmail());
+
+        // Assert that the number of records in the database has not changed
+        assertEquals(0, userRepository.count());
     }
 
     @Test
@@ -49,11 +61,24 @@ public class UserServiceImplTest {
         User user = new User();
         user.setName("John");
         user.setEmail("john@test.com");
+
+        long countBefore = userRepository.findAll().size();
+
         when(userRepository.save(user)).thenReturn(user);
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(user));
+
         User result = userService.saveUser(user);
+
+        long countAfter = userRepository.findAll().size();
+
         assertEquals("John", result.getName());
         assertEquals("john@test.com", result.getEmail());
+
+        // Assert that the number of records in the database has increased by 1
+        assertEquals(countBefore + 1, countAfter);
     }
+
+
 
     @Test
     public void testDeleteUser() {

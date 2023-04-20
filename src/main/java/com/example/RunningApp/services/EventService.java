@@ -14,4 +14,5 @@ public interface EventService {
     Event updateEvent(Long id, Event event);
     void deleteEvent(Long id);
 	List<Participant> getParticipantsByEventId(Long eventId);
+	void saveEvent(Event event);
 }

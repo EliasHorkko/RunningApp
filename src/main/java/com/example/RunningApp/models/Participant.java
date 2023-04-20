@@ -30,6 +30,17 @@ public class Participant {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    
+    public Participant() {
+    }
+
+    public Participant(String name, String email, Event event, User user) {
+        this.name = name;
+        this.email = email;
+        this.event = event;
+        this.user = user;
+    }
+    
     // getters and setters
 
     public Long getId() {

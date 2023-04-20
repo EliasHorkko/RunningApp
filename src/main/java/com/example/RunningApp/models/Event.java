@@ -30,13 +30,14 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
     
-    @NotBlank(message = "User is required")
-    private String user;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
     public Event() {
     }
 
-    public Event(String name, LocalDate date, String description,String user) {
+    public Event(String name, LocalDate date, String description,User user) {
         this.name = name;
         this.date = date;
         this.description = description;
@@ -44,11 +45,11 @@ public class Event {
         this.participants = new ArrayList<>();
     }
     
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

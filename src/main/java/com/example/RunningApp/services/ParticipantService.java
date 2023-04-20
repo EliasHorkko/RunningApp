@@ -11,4 +11,5 @@ public interface ParticipantService {
     List<Participant> getAllParticipants();
     public Participant updateParticipant(Long eventId, Long participantId, Participant participant);
     void deleteParticipant(Long id);
+	void saveParticipant(Participant participant);
 }
