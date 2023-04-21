@@ -46,7 +46,4 @@ public class RunningAppApplication {
             participantService.saveParticipant(participant);
         };
     }
-
-
-
 }

@@ -4,8 +4,10 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(255) NOT NULL,
   username VARCHAR(255) NOT NULL UNIQUE,
   email VARCHAR(255) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL,
+  enabled BOOLEAN NOT NULL DEFAULT true
 );
+
 
 -- Insert sample data into users table
 INSERT INTO users (name, username, email, password) 
