@@ -88,4 +88,5 @@ public class UserServiceImpl implements UserService {
 	    Optional<User> optionalUser = userRepository.findByUsernameAndPassword(username, password);
 	    return optionalUser.orElse(null); // Return the user object, or null if not found.
 	}
+
 }
