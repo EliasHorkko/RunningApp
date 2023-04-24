@@ -5,7 +5,6 @@
 ## Based on https://community.render.com/t/3232
 
 # Build stage
-
 FROM openjdk:11
 RUN apt-get update && apt-get install -y maven
 WORKDIR /app
