@@ -6,14 +6,13 @@
 
 # Build stage
 
-FROM maven:3.8.6-eclipse-temurin-17-focal AS build
-WORKDIR /home/app
+FROM openjdk:11
+RUN apt-get update && apt-get install -y maven
+WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 # Package stage
-FROM eclipse-temurin:17-jre-focal
-COPY --from=build /home/app/target/RunningApp-0.0.1-SNAPSHOT.jar /usr/local/lib/pkg.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/usr/local/lib/pkg.jar"]
+COPY target/RunningApp-0.0.1-SNAPSHOT.jar runningapp.jar
+ENTRYPOINT ["java","-jar","/app/runningapp.jar"]
