@@ -13,5 +13,5 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Package stage
-COPY target/maven-status/*/build/*.jar runningapp.jar
+COPY target/RunningApp-0.0.1-SNAPSHOT.jar runningapp.jar
 ENTRYPOINT ["java","-jar","/app/runningapp.jar"]
