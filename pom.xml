@@ -94,18 +94,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<configuration>
-					<imageName>runningapp</imageName>
-					<dockerDirectory>docker</dockerDirectory>
-					<buildArgs>
-						<JAR_FILE>target/RunningApp-0.0.1-SNAPSHOT.jar runningapp.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
